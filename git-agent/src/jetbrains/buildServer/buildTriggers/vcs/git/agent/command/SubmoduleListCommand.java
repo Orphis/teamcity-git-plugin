@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2012 JetBrains s.r.o.
+ * Copyright 2000-2013 Florent Castelli
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,36 +16,16 @@
 
 package jetbrains.buildServer.buildTriggers.vcs.git.agent.command;
 
-import jetbrains.buildServer.buildTriggers.vcs.git.AuthSettings;
-import jetbrains.buildServer.vcs.VcsException;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
+
 /**
- * @author dmitry.neverov
+ * @author Florent Castelli
  */
-public interface FetchCommand {
+public interface SubmoduleListCommand {
 
   @NotNull
-  FetchCommand setUseNativeSsh(boolean useNativeSsh);
-
-  @NotNull
-  FetchCommand setTimeout(int timeout);
-
-  @NotNull
-  FetchCommand setRefspec(String refspec);
-
-  @NotNull
-  FetchCommand setQuite(boolean quite);
-
-  @NotNull
-  FetchCommand setShowProgress(boolean showProgress);
-
-  @NotNull
-  FetchCommand setAuthSettings(@NotNull AuthSettings settings);
-
-  @NotNull
-  FetchCommand setDepth(int depth);
-
-  void call() throws VcsException;
+  Map<String, String> call();
 
 }

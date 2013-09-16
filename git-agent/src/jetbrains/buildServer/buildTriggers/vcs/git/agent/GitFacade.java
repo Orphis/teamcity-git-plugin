@@ -70,7 +70,11 @@ public interface GitFacade {
   @NotNull
   SubmoduleInitCommand submoduleInit();
 
+  @NotNull
   SubmoduleSyncCommand submoduleSync();
+
+  @NotNull
+  SubmoduleListCommand submoduleList();
 
   @NotNull
   SubmoduleUpdateCommand submoduleUpdate();

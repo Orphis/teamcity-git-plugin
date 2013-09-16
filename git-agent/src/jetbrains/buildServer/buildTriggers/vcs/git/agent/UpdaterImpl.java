@@ -49,7 +49,7 @@ public class UpdaterImpl implements Updater {
   private final static Logger LOG = Logger.getLogger(UpdaterImpl.class);
   /** Git version which supports --progress option in the fetch command */
   private final static GitVersion GIT_WITH_PROGRESS_VERSION = new GitVersion(1, 7, 1, 0);
-  private static final int SILENT_TIMEOUT = 24 * 60 * 60; //24 hours
+  protected static final int SILENT_TIMEOUT = 24 * 60 * 60; //24 hours
 
   private final SmartDirectoryCleaner myDirectoryCleaner;
   private final BuildProgressLogger myLogger;
@@ -191,7 +191,7 @@ public class UpdaterImpl implements Updater {
   }
 
 
-  private void checkoutSubmodules(@NotNull final File repositoryDir) throws VcsException {
+  protected void checkoutSubmodules(@NotNull final File repositoryDir) throws VcsException {
     File gitmodules = new File(repositoryDir, ".gitmodules");
     if (gitmodules.exists()) {
       myLogger.message("Checkout submodules in " + repositoryDir);
@@ -225,7 +225,7 @@ public class UpdaterImpl implements Updater {
   }
 
 
-  private boolean recursiveSubmoduleCheckout() {
+  protected boolean recursiveSubmoduleCheckout() {
     return SubmodulesCheckoutPolicy.CHECKOUT.equals(myRoot.getSubmodulesCheckoutPolicy()) ||
            SubmodulesCheckoutPolicy.CHECKOUT_IGNORING_ERRORS.equals(myRoot.getSubmodulesCheckoutPolicy());
   }
@@ -355,7 +355,7 @@ public class UpdaterImpl implements Updater {
       .call();
   }
 
-  protected void fetch(@NotNull File repositoryDir, @NotNull String refspec, boolean shallowClone) throws VcsException {
+  protected void fetch(@NotNull File repositoryDir, String refspec, boolean shallowClone) throws VcsException {
     boolean silent = isSilentFetch();
     int timeout = getTimeout(silent);
 

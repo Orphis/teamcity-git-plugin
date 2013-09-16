@@ -59,7 +59,7 @@ public class FetchCommandImpl implements FetchCommand {
   }
 
   @NotNull
-  public FetchCommand setRefspec(@NotNull String refspec) {
+  public FetchCommand setRefspec(String refspec) {
     myRefspec = refspec;
     return this;
   }
@@ -97,7 +97,9 @@ public class FetchCommandImpl implements FetchCommand {
     if (myDepth != null)
       myCmd.addParameter("--depth=" + myDepth);
     myCmd.addParameter("origin");
-    myCmd.addParameter(myRefspec);
+    if(myRefspec != null)
+      myCmd.addParameter(myRefspec);
+
     try {
       myCmd.run(with().timeout(myTimeout)
                   .authSettings(myAuthSettings)
